@@ -1,0 +1,75 @@
+import kotlin.math.sqrt
+import kotlin.io.readLine
+
+fun solveInequality(a: Double, b: Double, c: Double): ArrayList<Double> {
+    val intervals = ArrayList<Double>()
+
+    if (a == 0.0 && c == 0.0) {
+        if (b > 0) {
+            intervals.add(Double.NEGATIVE_INFINITY)
+            intervals.add(Double.POSITIVE_INFINITY)
+        }
+    } else if (a == 0.0) {
+        if (b / c > 0) {
+            intervals.add(Double.NEGATIVE_INFINITY)
+            intervals.add(-c)
+            intervals.add(Double.POSITIVE_INFINITY)
+        }
+    } else if (c == 0.0) {
+        if (a > 0) {
+            intervals.add(Double.NEGATIVE_INFINITY)
+            intervals.add(b / a)
+            intervals.add(Double.POSITIVE_INFINITY)
+        }
+    } else {
+        val discriminant = a * a - 4 * c * b
+        if (discriminant > 0) {
+            val root1 = (-a + sqrt(discriminant)) / (2 * c)
+            val root2 = (-a - sqrt(discriminant)) / (2 * c)
+            if (root1 < root2) {
+                intervals.add(Double.NEGATIVE_INFINITY)
+                intervals.add(root1)
+                intervals.add(root2)
+                intervals.add(Double.POSITIVE_INFINITY)
+            } else {
+                intervals.add(Double.NEGATIVE_INFINITY)
+                intervals.add(root2)
+                intervals.add(root1)
+                intervals.add(Double.POSITIVE_INFINITY)
+            }
+        } else if (discriminant == 0.0) {
+            val root = -a / (2 * c)
+            if (root > 0) {
+                intervals.add(Double.NEGATIVE_INFINITY)
+                intervals.add(root)
+                intervals.add(Double.POSITIVE_INFINITY)
+            } else {
+                intervals.add(Double.NEGATIVE_INFINITY)
+                intervals.add(Double.POSITIVE_INFINITY)
+            }
+        } else {
+            intervals.add(Double.NEGATIVE_INFINITY)
+            intervals.add(Double.POSITIVE_INFINITY)
+        }
+    }
+
+    return intervals
+}
+
+fun main() {
+    print("Enter the coefficient a: ")
+    val a = readLine()!!.toDouble()
+
+    print("Enter the coefficient b: ")
+    val b = readLine()!!.toDouble()
+
+    print("Enter the coefficient c: ")
+    val c = readLine()!!.toDouble()
+
+    val intervals = solveInequality(a, b, c)
+
+    println("Solution intervals:")
+    for (i in 0 until intervals.size - 1 step 2) {
+        println("(${intervals[i]}, ${intervals[i + 1]})")
+    }
+}
