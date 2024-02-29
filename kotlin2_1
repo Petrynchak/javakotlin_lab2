@@ -1,0 +1,23 @@
+import java.util.Scanner
+import kotlin.math.abs
+import kotlin.math.max
+
+fun main() {
+    val scanner = Scanner(System.in)
+    
+    print("Enter the first integer: ")
+    val firstNumber = scanner.nextInt()
+    print("Enter the second integer: ")
+    val secondNumber = scanner.nextInt()
+
+    val sum = firstNumber + secondNumber
+    println("sum = $sum")
+    val difference = abs(firstNumber - secondNumber)
+    println("difference = $difference")
+    val product = firstNumber * secondNumber
+    println("product = $product")
+
+    val max = maxOf(sum, difference, product)
+
+    println("The maximum value among the sum, difference, and product is: $max")
+}
